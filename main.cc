@@ -38,7 +38,7 @@ std::vector<std::string> load_tests() {
 
     std::ifstream run_list;
     run_list.open("../run.list", std::ios_base::in);
-    
+
     if (!run_list.is_open()) {
         LOG_WARN("无法打开run.list，请检查run.list文件是否存在");
         LOG_WARN("将按照默认顺序进行测试");
@@ -69,7 +69,7 @@ std::vector<std::string> load_tests() {
 
 void run_tests(std::vector<std::string>& tests) {
     cout << endl;
-    
+
     for (const auto& name : tests) {
         if (name2test.find(name) == name2test.end()) {
             LOG_ERROR("不存在的测试点: %s", name.c_str());
@@ -100,6 +100,6 @@ int main() {
 
     // 运行测试点
     run_tests(tests);
-    
+
     return 0;
 }
