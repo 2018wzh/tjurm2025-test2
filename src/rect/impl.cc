@@ -4,7 +4,7 @@
 std::pair<cv::Rect, cv::RotatedRect> get_rect_by_contours(const cv::Mat& input) {
     /**
      * 要求：
-     * 使用findCountours函数找出输入图像（彩色图像）中的矩形轮廓，并且返回它的外接矩形，以及
+     * 使用findContours函数找出输入图像（彩色图像）中的矩形轮廓，并且返回它的外接矩形，以及
      * 最小面积外接矩形。所需要的函数自行查找。
      *
      * 通过条件：
