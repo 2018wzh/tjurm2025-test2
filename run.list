@@ -1,9 +1,9 @@
+compute_area_ratio
 
 stop
 rect
 compute_iou
 resize
-compute_area_ratio
 
 split
 erode
