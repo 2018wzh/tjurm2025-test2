@@ -12,13 +12,13 @@ bool test_my_resize()
     {
         std::string title = "scale = " + std::to_string(s);
 
-        cv::imshow("原图", input);
+        cv::imshow("orig", input);
 
         cv::Mat resized = my_resize(input, s);
-        cv::imshow(title + "(你的答案)", resized);
+        cv::imshow(title + "(ya))", resized);
 
         cv::resize(input, res, cv::Size((int)(input.cols * s), (int)(input.rows * s)));
-        cv::imshow(title + "(正确答案)", res);
+        cv::imshow(title + "(ca)", res);
         cv::waitKey(0);
         cv::destroyAllWindows();
     }

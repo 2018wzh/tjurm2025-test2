@@ -23,15 +23,14 @@ cv::Mat my_resize(const cv::Mat &input, float scale)
         {
             float x0 = x / scale, y0 = y / scale;
             int x1 = static_cast<int>(x0), y1 = static_cast<int>(y0);
-            int x2 = (x1 == h - 1 ? x1 : x1 + 1), y2 = (y1 == w - 1 ? y1 : y1 + 1);
+            int x2 = std::min(x1 + 1, h - 1), y2 = std::min(y1, w - 1);
             float dx = x - x1, dy = y - y1;
-            cv::Vec3b p0, p1 = input.at<cv::Vec3b>(x1, y1), p2 = input.at<cv::Vec3b>(x1, y2), p3 = input.at<cv::Vec3b>(x2, y1), p4 = input.at<cv::Vec3b>(x2, y2);
+            cv::Vec3b p1 = input.at<cv::Vec3b>(x1, y1), p2 = input.at<cv::Vec3b>(x1, y2), p3 = input.at<cv::Vec3b>(x2, y1), p4 = input.at<cv::Vec3b>(x2, y2);
             // float p1 = in[convert(x1, y1, h, w)], p2 = in[convert(x1, y2, h, w)], p3 = in[convert(x2, y1, h, w)], p4 = in[convert(x2, y2, h, w)];
             for (int i = 0; i < 3; i++)
-                // p0[i] = static_cast<uchar>(p1[i] * (1 - dx) * (1 - dy) + p2[i] * dx * (1 - dy) + p3[i] * (1 - dx) * dy + p4[i] * dx * dy);
-                p0[i] = (p1[i] + p2[i] + p3[i] + p4[i]) / 4;
+                out.at<cv::Vec3b>(x, y)[i] = static_cast<uchar>(p1[i] * (1 - dx) * (1 - dy) + p2[i] * dy * (1 - dx) + p3[i] * (1 - dy) * dx + p4[i] * dx * dy);
+            // p0[i] = (p1[i] + p2[i] + p3[i] + p4[i]) / 4;
             // out[convert(x, y, new_h, new_w)] = p1 * (1 - dx) * (1 - dy) + p2 * dx * (1 - dy) + p3 * (1 - dx) * dy + p4 * dx * dy;
-            out.at<cv::Vec3b>(x, y) = p0;
         }
     cv::imshow("input", input);
     cv::imshow("output", out);
