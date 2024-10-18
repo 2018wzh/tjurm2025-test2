@@ -1,5 +1,6 @@
-stop
 resize
+
+stop
 
 split
 erode
